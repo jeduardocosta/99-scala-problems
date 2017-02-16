@@ -15,8 +15,8 @@ object Problem11 {
 
   def encodeModified[T](items: List[T]): List[Any] = {
     def encodeIter(grouped: List[(Int, T)]): List[Any] = grouped match {
-      case Nil => Nil
-      case h :: t => (if (h._1 == 1) h._2 else h) :: encodeIter(t)
+      case (h1, h2) :: t => (if (h1 == 1) h2 else (h1, h2)) :: encodeIter(t)
+      case _ => Nil
     }
 
     encodeIter(encode(items))
