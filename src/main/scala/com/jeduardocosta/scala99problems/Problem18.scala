@@ -21,9 +21,11 @@ object Problem18 {
 
   def slice3[T](start: Int, end: Int, items: List[T]): (List[T]) = {
     def slice3Iter(start: Int, end: Int, items: List[T], result: List[T]): List[T] = items match {
-      case h :: t if start > 0 => slice3Iter(start - 1, end - 1, t, result)
-      case h :: t if start < end => slice3Iter(start, end - 1, t, result :+ h)
-      case h :: t if start == end => slice3Iter(start, end, t, result)
+      case h :: t => (start, end) match {
+        case x if start > 0 => slice3Iter(start - 1, end - 1, t, result)
+        case x if start < end => slice3Iter(start, end - 1, t, result :+ h)
+        case _ => slice3Iter(start, end, t, result)
+      }
       case _ => result
     }
 
